@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Box from '@mui/material/Box';
 import Masonry from '@mui/lab/Masonry';
 import { styled } from '@mui/material/styles';
@@ -7,12 +7,13 @@ import Paper from '@mui/material/Paper';
 const ListThought = props => {
 
     const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+        backgroundColor: theme.palette.mode === '#1A2027',
         ...theme.typography.body2,
         padding: theme.spacing(0.5),
         textAlign: 'center',
         color: theme.palette.text.secondary,
     }));
+    
 
     return (
         <Box sm={{ width: 500, minHeight: 393 }}>

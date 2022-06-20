@@ -5,6 +5,10 @@ import { createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ListThought from './component/ListThought';
 import ThoughtService from "./services/ThoughtService";
+import Box from '@mui/material/Box';
+import Masonry from '@mui/lab/Masonry';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
 const theme = createTheme({
   palette: {
@@ -20,9 +24,7 @@ const theme = createTheme({
 
 function App() {
 
-  
-
-useEffect(() => {
+  useEffect(() => {
     getThought()
   }, [])
 
@@ -44,11 +46,30 @@ useEffect(() => {
     )
   })
 
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: 'transparent',
+    ...theme.typography.body2,
+    padding: theme.spacing(2110),
+    textAlign: 'center',
+    color: '#fff',
+  }));
+
     return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
           <CssBaseline />
-            {allThought}
+            {/* {allThought} */}
+
+            <Box sm={{ width: 500, minHeight: 393 }}>
+              <Masonry columns={4} spacing={2}>
+                {thoughts.map((item, index) => (
+                  <Item key={index} sx = { 150 }>
+                    {item.title}
+                    {item.content}
+                  </Item>
+                ))}
+              </Masonry>
+            </Box>
         </React.Fragment>
       </ThemeProvider>
     );
