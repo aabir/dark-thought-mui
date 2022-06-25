@@ -111,11 +111,44 @@ function App() {
         <React.Fragment>
           <CssBaseline />
             {/* {allThought} */}
-            <Box sx={{m: 4}}>    
-
-              <Button variant="outlined" onClick={handleFormOpen}>
+            <Box sx={{m: 'auto', width: '40%', p: 2 }}>
+              {/* <Button variant="outlined" onClick={handleFormOpen} style={{alignItems: 'center', width: 'auto'}}>
                 Open form dialog
-              </Button>       
+              </Button>  */}
+
+              <form onSubmit={handleSubmit} autoComplete='off'>
+                <TextField 
+                    margin="dense"
+                    id="title"
+                    label="Title"
+                    value={newThought.title}
+                    onChange={handleInputChange}
+                    name="title"
+                    fullWidth
+                    variant="standard"
+                    color="primary"
+                    sx={{ input: {color: 'red'}}}
+                />
+
+                <TextField
+                  margin="dense"
+                  id="content"
+                  label="My Thought"
+                  value={newThought.content}
+                  onChange={handleInputChange}
+                  name="content"
+                  fullWidth
+                  variant="standard"
+                  multiline
+                />
+                <Button type='submit'>Add</Button>
+                <Button onClick={handleClose}>Cancel</Button>
+              </form>
+
+            </Box>
+            <Box sx={{m: 4, alignItems: 'center', width: 'auto'}}>    
+
+                    
 
               <Dialog open={open} 
                 onClose={handleClose} 
@@ -157,8 +190,6 @@ function App() {
                     <Button type='submit'>Add</Button>
                     <Button onClick={handleClose}>Cancel</Button>
                   </form>
-               
-                
               </Dialog>
 
               <Box sm={{ width: 500, minHeight: 393, padding: 15 }}>
