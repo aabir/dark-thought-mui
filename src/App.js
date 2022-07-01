@@ -1,12 +1,11 @@
 
 import { ThemeProvider } from '@emotion/react';
 import React, { useEffect, useState} from 'react';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ThoughtService from "./services/ThoughtService";
 import Box from '@mui/material/Box';
 import Masonry from '@mui/lab/Masonry';
-import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -27,6 +26,35 @@ const theme = createTheme({
   }
 });
 
+const StyledTextField = styled(TextField)({
+  "& label": {
+    color: "white"
+  },
+  // "&:hover label": {
+  //   fontWeight: 700
+  // },
+  "& label.Mui-focused": {
+    color: "white"
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "white"
+  },
+  "& .MuiInput-input": {
+    borderBottom: "2px solid white"
+  },
+  "& .MuiInputBase-root": {
+    "& fieldset": {
+      borderColor: "white"
+    },
+    "&:hover fieldset": {
+      borderColor: "white",
+      borderWidth: 2
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "white"
+    }
+  }
+});
 
 function App() {
 
@@ -55,7 +83,6 @@ function App() {
         }
     })
   }
-
 
   const getThought = () => {
       ThoughtService.getAll()
@@ -117,7 +144,7 @@ function App() {
               </Button>  */}
 
               <form onSubmit={handleSubmit} autoComplete='off'>
-                <TextField 
+                <StyledTextField 
                     margin="dense"
                     id="title"
                     label="Title"
@@ -126,11 +153,9 @@ function App() {
                     name="title"
                     fullWidth
                     variant="standard"
-                    color="primary"
-                    sx={{ input: {color: 'red'}}}
                 />
 
-                <TextField
+                <StyledTextField
                   margin="dense"
                   id="content"
                   label="My Thought"
