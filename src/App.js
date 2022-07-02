@@ -28,30 +28,30 @@ const theme = createTheme({
 
 const StyledTextField = styled(TextField)({
   "& label": {
-    color: "white"
+    color: "#e8eaed"
   },
   // "&:hover label": {
   //   fontWeight: 700
   // },
   "& label.Mui-focused": {
-    color: "white"
+    color: "#e8eaed"
   },
   "& .MuiInput-underline:after": {
-    borderBottomColor: "white"
+    borderBottomColor: "#e8eaed"
   },
-  "& .MuiInput-input": {
-    borderBottom: "2px solid white"
+  "& .MuiInput-root:before": {
+    borderBottomColor: "#e8eaed"
   },
   "& .MuiInputBase-root": {
     "& fieldset": {
-      borderColor: "white"
+      borderColor: "#e8eaed"
     },
     "&:hover fieldset": {
-      borderColor: "white",
+      borderColor: "#e8eaed",
       borderWidth: 2
     },
     "&.Mui-focused fieldset": {
-      borderColor: "white"
+      borderColor: "#e8eaed"
     }
   }
 });
@@ -166,8 +166,15 @@ function App() {
                   variant="standard"
                   multiline
                 />
-                <Button type='submit'>Add</Button>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button 
+                  sx={{
+                    "&.MuiButton-text": {
+                      color: "white", 
+                      justifyContent: "left", 
+                      paddingLeft: "0"
+                    }}} 
+                    type='submit'>Add</Button>
+                {/* <Button onClick={handleClose}>Cancel</Button> */}
               </form>
 
             </Box>
