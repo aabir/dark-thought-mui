@@ -1,4 +1,3 @@
-
 import { ThemeProvider } from '@emotion/react';
 import React, { useEffect, useState} from 'react';
 import { createTheme, styled } from '@mui/material/styles';
@@ -9,10 +8,16 @@ import Masonry from '@mui/lab/Masonry';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+
+
 
 const theme = createTheme({
   palette: {
@@ -68,9 +73,33 @@ function App() {
     publish: true
   } 
 
+  function handleDelete(id, event){
+    let confirm = window.confirm("Are you sure?")
+    if(confirm === true){
+        ThoughtService.remove(id)
+        .then(res => {
+            if(res.status === 200){
+                getThought()
+            }
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    }
+  }
+
   const [thoughts, setThoguhts] = useState([])
-  const [open, setOpen] = React.useState(false)
+  //const [open, setOpen] = React.useState(false)
   const [newThought, setNewThought] = useState(initialThoughtSate)
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleInputChange = event => {
     const{name, value, type, checked} = event.target
@@ -94,13 +123,13 @@ function App() {
           })
   }
 
-  const handleFormOpen = () => {
-    setOpen(true)
-  }
+  // const handleFormOpen = () => {
+  //   setOpen(true)
+  // }
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  // const handleClose = () => {
+  //   setOpen(false)
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -134,6 +163,7 @@ function App() {
     //textAlign: 'center',
     color: '#e8eaed',
     border: '1px solid #fff',
+    position: 'relative'
   }))
 
     return (
@@ -173,8 +203,8 @@ function App() {
                   sx={{
                     "&.MuiButton-text": {
                       color: "white", 
-                      justifyContent: "left", 
-                      paddingLeft: "0"
+                      //justifyContent: "left", 
+                      //paddingLeft: "0"
                     }}} 
                     type='submit'>Add</Button>
                 {/* <Button onClick={handleClose}>Cancel</Button> */}
@@ -182,8 +212,6 @@ function App() {
 
             </Box>
             <Box sx={{m: 4, alignItems: 'center', width: 'auto'}}>    
-
-                    
 
               {/* <Dialog open={open} 
                 onClose={handleClose} 
@@ -227,6 +255,8 @@ function App() {
                   </form>
               </Dialog> */}
 
+                        
+
               <Box sm={{ width: 500, minHeight: 393, padding: 15 }}>
                 <Masonry columns={4} spacing={2}>
                   {thoughts.map((thought, index) => (
@@ -235,10 +265,39 @@ function App() {
                         {thought.title}
                       </h2>
                       {thought.content}
+                      
+                        <Button
+                          id="demo-positioned-button"
+                          aria-controls={open ? "demo-positioned-menu" : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? "true" : undefined}
+                          onClick={handleClick}
+                        >
+                          <MoreVertIcon 
+                            sx={{ 
+                              color: "white"
+                              }} 
+                          />
+                        </Button>
+
+                        <Menu
+                          id="demo-positioned-menu"
+                          aria-labelledby="demo-positioned-button"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          getContentAnchorEl={null}
+                          anchorOrigin={{ vertical: 'bottom',horizontal: 'left' }} 
+                          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                        >
+                          <MenuItem onClick={(e) => handleDelete(thought.id, e)}>Delete</MenuItem>
+                        </Menu>
+                        
                     </Item>
                   ))}
                 </Masonry>
               </Box>
+              
             </Box>
         </React.Fragment>
       </ThemeProvider>
