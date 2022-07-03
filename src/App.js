@@ -102,20 +102,23 @@ function App() {
     setOpen(false)
   }
 
-  function handleSubmit(e){
-    e.preventDefault();
-    console.log(newThought)
-
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    
     ThoughtService.create(newThought)
         .then(res => {
             if(res.status === 200){
-                console.log(res)
-                getThought()
-                // thoughts({
-                //     title: res.data.title,
-                //     content: res.data.content
-                // })
-                //setSubmitted(true);
+              setNewThought({
+                title: "",
+                content: ""
+              })  
+
+              getThought()
+              // thoughts({
+              //     title: res.data.title,
+              //     content: res.data.content
+              // })
+              //setSubmitted(true);
                 console.log(res.data);
             }
         })
@@ -182,7 +185,7 @@ function App() {
 
                     
 
-              <Dialog open={open} 
+              {/* <Dialog open={open} 
                 onClose={handleClose} 
                 PaperProps={{
                   style: {
@@ -222,7 +225,7 @@ function App() {
                     <Button type='submit'>Add</Button>
                     <Button onClick={handleClose}>Cancel</Button>
                   </form>
-              </Dialog>
+              </Dialog> */}
 
               <Box sm={{ width: 500, minHeight: 393, padding: 15 }}>
                 <Masonry columns={4} spacing={2}>
